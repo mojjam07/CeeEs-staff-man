@@ -1,0 +1,27 @@
+# Render Blueprint: New > Blueprint > pick this repo. Fill the "sync: false" secrets in the dashboard.
+services:
+  - type: web
+    name: staff-attendance-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    plan: free            # free instances sleep when idle; use "starter" for production payroll
+    envVars:
+      - { key: NODE_VERSION, value: "20" }
+      - { key: SUPABASE_URL, sync: false }
+      - { key: SUPABASE_SERVICE_ROLE_KEY, sync: false }
+      - { key: CORS_ORIGIN, sync: false }          # your Vercel URL(s), comma-separated, no trailing slash
+      - { key: TZ_OFFSET_MINUTES, value: "60" }
+      - { key: OVERTIME_MULTIPLIER, value: "1.5" }
+      - { key: LATE_PENALTY_PER_MINUTE, value: "0" }
+      - { key: PAYROLL_PERIODS_PER_YEAR, value: "12" }
+      - { key: MINIMUM_WAGE, value: "70000" }
+      - { key: COMPANY_NAME, sync: false }
+      - { key: MANAGER_EMAILS, sync: false }
+      - { key: RESEND_API_KEY, sync: false }
+      - { key: EMAIL_FROM, sync: false }
+      - { key: TERMII_API_KEY, sync: false }
+      - { key: TERMII_SENDER_ID, sync: false }
+      - { key: PAYSTACK_SECRET_KEY, sync: false }
